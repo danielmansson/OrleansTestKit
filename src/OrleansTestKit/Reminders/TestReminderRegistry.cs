@@ -25,7 +25,8 @@ namespace Orleans.TestKit.Reminders
         public async Task<IGrainReminder> GetReminder(string reminderName) {
             await Mock.Object.GetReminder(reminderName);
 
-            return _reminders[reminderName] as IGrainReminder;
+            _reminders.TryGetValue(reminderName, out var reminder);
+            return reminder;
         }
         public async Task<List<IGrainReminder>> GetReminders() {
             await Mock.Object.GetReminders();
